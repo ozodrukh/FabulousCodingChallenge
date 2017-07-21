@@ -23,7 +23,7 @@ abstract class ViewSwitcherOnScrollPositionChange : RecyclerView.OnScrollListene
     override fun onScrolled(parent: RecyclerView, dx: Int, dy: Int) {
         val layout = parent.layoutManager as LinearLayoutManager
 
-        if (switchWhenReachesScrollIndex >= layout.findLastCompletelyVisibleItemPosition()) {
+        if (switchWhenReachesScrollIndex >= layout.findLastVisibleItemPosition()) {
             flipViews(false)
         } else {
             flipViews(true)

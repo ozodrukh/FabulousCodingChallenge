@@ -1,8 +1,11 @@
 package codetail.io.fabulouscoddingchallenge
 
 import android.os.Bundle
+import android.support.design.widget.FloatingActionButton
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
+import android.widget.TextView
 import codetail.io.fabulouscoddingchallenge.ext.findView
 
 /**
@@ -28,9 +31,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.actviity_main)
 
+        val floatingActionView = findView<FloatingActionButton>(R.id.secondaryAction)
+        floatingActionView.setOnClickListener {
+            Snackbar.make(floatingActionView, R.string.oops_text, Snackbar.LENGTH_SHORT)
+                    .show()
+        }
+
         contentView = findView(R.id.contentView)
         contentView.adapter = UserHabitGuideAdapter()
-        contentView.addOnScrollListener(BubblesSwapOnScroll(this).apply {
+        contentView.addOnScrollListener(BubblesSwapOnScroll(this, floatingActionView).apply {
             switchWhenReachesScrollIndex = FLOATING_VIEW_DISSAPPEARS_UNTIL
         })
     }

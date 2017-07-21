@@ -3,4 +3,5 @@
   <string name="floating_sample_text">Hey, i\'m floating view, scroll me till View Index 30</string>
   <string name="floating_bubble_title_morning_ritual">Morning Ritual</string>
   <string name="floating_bubble_action_launch">Launch</string>
+  <string name="oops_text">Wooops...</string>
 </resources>
