@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
+import android.view.ViewTreeObserver
 import android.widget.FrameLayout
 
 /**
@@ -22,6 +23,16 @@ fun <T : View> Activity.findView(@IdRes id: Int): T {
 
 fun TextView.textAppearance(id: Int) {
     TextViewCompat.setTextAppearance(this, id)
+}
+
+fun View.onceMeasured(block: View.() -> Unit) {
+    viewTreeObserver.addOnGlobalLayoutListener(
+            object : ViewTreeObserver.OnGlobalLayoutListener {
+                override fun onGlobalLayout() {
+                    viewTreeObserver.removeOnGlobalLayoutListener(this)
+                    block()
+                }
+            })
 }
 
 fun TextView.padding(padding: Float) {

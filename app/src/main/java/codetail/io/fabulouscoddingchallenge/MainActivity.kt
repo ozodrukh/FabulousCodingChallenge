@@ -2,13 +2,8 @@ package codetail.io.fabulouscoddingchallenge
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.AppCompatTextView
-import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import codetail.io.fabulouscoddingchallenge.ext.*
-
-import android.support.v7.appcompat.R.style.TextAppearance_AppCompat_Small_Inverse
-import android.view.Gravity
+import codetail.io.fabulouscoddingchallenge.ext.findView
 
 /**
  * created at 7/21/17
@@ -35,47 +30,8 @@ class MainActivity : AppCompatActivity() {
 
         contentView = findView(R.id.contentView)
         contentView.adapter = UserHabitGuideAdapter()
-        contentView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            val floatingViewUntilIndex = 30
-            var floatingViewState: FloatingViewHelper.FloatingViewState? = null
-
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-
-            }
-
-            override fun onScrolled(parent: RecyclerView, dx: Int, dy: Int) {
-                val layout = parent.layoutManager as LinearLayoutManager
-
-                if (floatingViewUntilIndex >= layout.findLastCompletelyVisibleItemPosition()) {
-                    if (floatingViewState == null) {
-                        val floatingView = AppCompatTextView(parent.context).apply {
-                            text = context.getString(R.string.floating_sample_text)
-                            padding(16f)
-                            customFrameLayoutParams(
-                                    height = context.dp(64f),
-                                    gravity = Gravity.BOTTOM,
-                                    bottomMargin = context.dp(16f)
-                            )
-                            textAppearance(id = TextAppearance_AppCompat_Small_Inverse)
-                            setBackgroundColor(colorOf(R.color.floatingViewBackgroundColor))
-                        }
-
-                        floatingViewState = FloatingViewHelper.make(floatingView, parent)
-                    }
-
-                    floatingViewState?.let {
-                        if (!it.showing) {
-                            it.show()
-                        }
-                    }
-                } else {
-                    floatingViewState?.let {
-                        if (it.showing) {
-                            it.dismiss()
-                        }
-                    }
-                }
-            }
+        contentView.addOnScrollListener(BubblesSwapOnScroll(this).apply {
+            switchWhenReachesScrollIndex = FLOATING_VIEW_DISSAPPEARS_UNTIL
         })
     }
 }
