@@ -96,8 +96,5 @@ class BubblesSwapOnScroll(context: Activity, secondaryView: FloatingActionButton
         }
     }
 
-    override fun createSecondaryView() {
-
-    }
-
+    override fun createSecondaryView() = Unit
 }

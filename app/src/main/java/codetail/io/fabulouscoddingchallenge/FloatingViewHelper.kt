@@ -12,7 +12,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import codetail.io.fabulouscoddingchallenge.ext.customFrameLayoutParams
-import timber.log.Timber
 
 /**
  * FloatingViewHelper shares same idea as normal SnackBar it attaches
@@ -209,8 +208,6 @@ object FloatingViewHelper {
                 capturedChild.parent?.let {
                     it.requestDisallowInterceptTouchEvent(true)
                 }
-
-                Timber.d("ViewCaptured")
             }
 
             override fun onViewReleased(child: View, xvel: Float, yvel: Float) {
@@ -320,7 +317,6 @@ object FloatingViewHelper {
                     interceptingEvents = false
             }
 
-            Timber.d("onIntercepting=$interceptingEvents")
             if (dispatchEventToHelper) {
                 return dragHelper.shouldInterceptTouchEvent(event)
             }
@@ -328,8 +324,6 @@ object FloatingViewHelper {
         }
 
         override fun onTouchEvent(event: MotionEvent): Boolean {
-            Timber.d("interceptingOnTouch=$interceptingEvents")
-
             if (interceptingEvents) {
                 dragHelper.processTouchEvent(event)
                 return true
@@ -354,7 +348,6 @@ object FloatingViewHelper {
         fun isPointInChildBounds(child: View, x: Int, y: Int): Boolean {
             child.getHitRect(tmpRect)
 
-            Timber.d("tmpRect: $tmpRect, x: $x, y: $y")
             try {
                 return tmpRect.contains(x, y)
             } finally {
