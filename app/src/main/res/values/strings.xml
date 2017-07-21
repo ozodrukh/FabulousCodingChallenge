@@ -1,3 +1,4 @@
 <resources>
   <string name="app_name">FabulousCoddingChallenge</string>
+  <string name="floating_sample_text">Hey, i\'m floating view, scroll me till View Index 30</string>
 </resources>
